@@ -2,14 +2,22 @@ package com.my_library.entities;
 
 import java.util.Date;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.my_library.Enum.StatutLivre;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Livres {
@@ -19,20 +27,36 @@ public class Livres {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@NotEmpty(message = "Titre est obligatoire")
+    @Column(name = "titre")
 	private String titre;
 	
+	@NotEmpty(message = "Nom auteur est obligatoire")
+    @Column(name = "Auteur")
 	private String auteur;
 	
+	@NotEmpty(message = "IBSN est obligatoire")
+    @Column(name = "IBSN", unique = true)
 	private String ISBN;
 	
+	@NotEmpty(message = "category est obligatoire")
+    @Column(name = "category")
 	private String category;
 	
+	@NotEmpty(message = "nombre des Exemplaires est obligatoire")
+    @Column(name = "nombre des Exemplaires")
 	private int nbExemplaires;
 	
+	@NotEmpty(message = "date de Publication est obligatoire")
+    @Column(name = "date de Publication")
 	private Date datePub;
 	
+	@NotEmpty(message = "localisation est obligatoire")
+    @Column(name = "localisation", unique = true)
 	private String localisation;
 	
+	@NotEmpty(message = "Statut de livre est obligatoire")
+	@Column(name = "Statut de livre")
 	@Enumerated(EnumType.STRING)
 	private StatutLivre statutliv;
 	
@@ -140,7 +164,23 @@ public class Livres {
 	 * 
 	 */
 	public Livres() {}
+	
+	@ManyToOne( fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "user_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private User user;
+
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	
+	
+		
 
 }

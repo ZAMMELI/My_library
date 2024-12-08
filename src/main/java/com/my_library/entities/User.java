@@ -4,10 +4,15 @@ import java.util.Date;
 
 import com.my_library.Enum.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class User {
@@ -17,16 +22,30 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long iduser;
 	
+	@NotEmpty(message = "name est obligatoire")
+    @Column(name = "Name")
 	private String name;
 	
+	@NotEmpty(message = "subname est obligatoire")
+    @Column(name = "subName")
 	private String subname;
 	
+	@NotEmpty(message = "Email est obligatoire")
+	@Email(message = "Email invalide")
+    @Column(name = "email", unique = true)
 	private String email;
 	
+	@NotEmpty(message = "date dd'inscription est obligatoire")
+    @Column(name = "date d'inscription")
 	private Date dateinscription;
 	
+	@NotEmpty(message = "mot de passe est obligatoire")
+    @Column(name = "mot de passe")
 	private String pwd;
 	
+	@NotEmpty(message = "Le rôle est obligatoire")
+    @Column(name = "role")
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
 	//getters and setters 
