@@ -16,8 +16,8 @@ public class Livres {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	
 	private String titre;
 	
@@ -39,7 +39,7 @@ public class Livres {
 	
 	//getters and setters
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
