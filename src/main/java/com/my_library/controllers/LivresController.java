@@ -56,26 +56,7 @@ public class LivresController {
 	}).orElseThrow(() -> new IllegalArgumentException("userId" + userId + " not found")); 
 	} 
 	
-	/************************************************************************
-	@PutMapping("/{livresId}")
-	public Livres updateLivres(@PathVariable Long livresId,@Valid @RequestBody Livres livresRequest) {
-		//TODO: process PUT request
-		
-		return livresRepository.findById(livresId).map(livre -> {
-			livre.setTitre(livresRequest.getTitre());
-			livre.setAuteur(livresRequest.getAuteur());
-			livre.setAuteur(livresRequest.getAuteur());
-			livre.setISBN(livresRequest.getISBN());
-			livre.setCategory(livresRequest.getCategory());
-			livre.setNbExemplaires(livresRequest.getNbExemplaires());
-			livre.setDatePub(livresRequest.getDatePub());
-			livre.setLocalisation(livresRequest.getLocalisation());
-			livre.setStatutliv(livresRequest.getStatutliv());
-		    return livresRepository.save(livre);
-		}).orElseThrow(() -> new IllegalArgumentException("livresId " + livresId + "not found"));
-		
-		}
-		***************************************************************************/
+
 	@PutMapping("/update/{userId}/{livresId}") 
 	public Livres updateLivres(@PathVariable (value = "userId") Long userId, @PathVariable (value = "livresId") Long livresId, 
 			@Valid @RequestBody Livres livresRequest) { 
@@ -98,16 +79,6 @@ public class LivresController {
 	
 	}
 	
-/************************************************	
-	@DeleteMapping("/{livresId}")
-	public ResponseEntity<?> deleteLivre (@PathVariable Long livresId){
-		return livresRepository.findById(livresId).map(livre -> {
-			livresRepository.delete(livre);
-			return ResponseEntity.ok().build();
-		}).orElseThrow(() -> new IllegalArgumentException("livresId " + livresId + "not found"));
-	
-	}
-*****************************************************/
 	
 	@DeleteMapping("/delete/{livresId}") 
 	public ResponseEntity<?> deleteLivre(@PathVariable (value = "livresId") Long livresId) { 
